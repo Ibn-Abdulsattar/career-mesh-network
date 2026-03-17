@@ -15,7 +15,7 @@ const sendMail = wrapAsync(async (to, subject, text) => {
   await transporter.verify();
 
   const mailOptions = {
-    from: `"Zoom" <${process.env.SMTP_EMAIL}>`,
+    from: `"Career Mesh" <${process.env.SMTP_EMAIL}>`,
     to,
     subject,
     text,
