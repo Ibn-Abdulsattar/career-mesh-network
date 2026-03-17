@@ -1,10 +1,10 @@
-import Comment from "./comment.model";
-import Connection from "./connection.model";
-import Education from "./education.model";
-import Experience from "./experience.model";
-import Post from "./post.model";
-import Profile from "./profile.model";
-import User from "./user.model";
+import Comment from "./comment.model.js";
+import Connection from "./connection.model.js";
+import Education from "./education.model.js";
+import Experience from "./experience.model.js";
+import Post from "./post.model.js";
+import Profile from "./profile.model.js";
+import User from "./user.model.js";
 
 // Post & Comment
 User.hasMany(Post, {

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import userRoute from "./routes/user.routes.js"
 const app = express();
 
 dotenv.config();
@@ -18,16 +19,19 @@ app.use(
 );
 
 app.get("/api/health", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: "Welcome to the Carrer Mesh!",
   });
 });
+
+app.use("/api/auth", userRoute);
+
 
 app.use((err, req, res, next) => {
   console.error("🔥 Error:", err);
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
-  res.status(statusCode).json({ message });
+  return res.status(statusCode).json({ message });
 });
 
 export { app };

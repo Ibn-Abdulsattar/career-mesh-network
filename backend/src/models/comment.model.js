@@ -8,7 +8,7 @@ Comment.init(
     user_id: {
       type: DataTypes.UUID,
       references: {
-        model: "User",
+        model: "users",
         key: "user_id",
       },
       allowNull: false,

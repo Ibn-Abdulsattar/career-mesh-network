@@ -20,9 +20,11 @@ Profile.init(
     },
     bio: {
       type: DataTypes.STRING,
+      defaultValue: ""
     },
-    currentPost: {
+    current_post: {
       type: DataTypes.STRING,
+      defaultValue: ""
     },
   },
   {

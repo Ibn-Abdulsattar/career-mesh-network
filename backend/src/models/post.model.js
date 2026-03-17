@@ -1,6 +1,5 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/db.js";
-import { User } from "./user.model.js";
 
 class Post extends Model {}
 
