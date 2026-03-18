@@ -1,15 +1,20 @@
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.routes.js"
+import profileRoute from "./routes/profile.routes.js"
 const app = express();
-
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.set("PORT", process.env.PORT || 5000);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/upload", express.static(path.join(__dirname, "../upload")));
 app.use(cookieParser());
 app.use(
   cors({
@@ -25,6 +30,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", userRoute);
+app.use("/api/profile", profileRoute);
 
 
 app.use((err, req, res, next) => {

@@ -23,7 +23,7 @@ Education.init(
     degree: {
       type: DataTypes.STRING,
     },
-    field_of_study: {
+    field: {
       type: DataTypes.STRING,
     },
   },
@@ -33,7 +33,7 @@ Education.init(
     tableName: "educations",
     underscored: true,
     indexes: [
-      { fields: ["field_of_study"], name: "idx-education-field_of_study" },
+      { fields: ["field"], name: "idx-education-field" },
     ],
   },
 );

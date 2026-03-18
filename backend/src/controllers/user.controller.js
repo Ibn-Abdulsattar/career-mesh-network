@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import sendMail from "../services/sendMail.js";
 import { Op } from "sequelize";
 import Otp from "../models/otp.model.js";
-import { Profile, User } from "../models/index.js";
+import { Education, Experience, Profile, User } from "../models/index.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import ExpressError from "../utils/expressError.js";
 const isProd = process.env.NODE_ENV === "production";
@@ -68,6 +68,7 @@ export const login = async (req, res, next) => {
       "isVerified",
       "avatar_url",
       "token",
+      "role"
     ],
   });
 
@@ -92,11 +93,13 @@ export const login = async (req, res, next) => {
   user.token_updated_at = new Date();
   await user.save();
 
-  res.cookie("userToken", user.token, {
+  res.cookie("token", user.token, {
     httpOnly: true,
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
   });
+
+  user.password = "";
 
   res.status(200).json({
     message: "Login successful",
@@ -118,7 +121,7 @@ export const logout = async (req, res, next) => {
   await user.save();
 
   res
-    .clearCookie("userToken", {
+    .clearCookie("token", {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? "none" : "lax",
@@ -214,7 +217,9 @@ export const verifyOtp = async (req, res, next) => {
   newUser.token_updated_at = new Date();
   await newUser.save();
 
-  await Profile.create({ user_id: newUser.user_id });
+  const profile = await Profile.create({ user_id: newUser.user_id });
+  await Education.create({profile_id: profile.id});
+  await Experience.create({profile_id: profile.id});
 
   const message = `Welcome to Career Mesh, ${newUser.username}! 
 
@@ -227,7 +232,7 @@ Happy!
   await sendMail(newUser.email, "Welcome to Career Mesh!", message);
 
   res
-    .cookie("userToken", newUser.token, {
+    .cookie("token", newUser.token, {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? "none" : "lax",
