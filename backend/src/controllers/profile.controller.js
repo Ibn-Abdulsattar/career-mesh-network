@@ -1,5 +1,5 @@
-import { where } from "sequelize";
 import { Education, Experience, Profile, User } from "../models/index.js";
+import convertDataToPdf from "../services/convertDataToPdf";
 import ExpressError from "../utils/expressError.js";
 
 export const profile = async (req, res, next) => {
@@ -73,12 +73,30 @@ export const updateProfile = async (req, res, next) => {
     });
   }
 
-  return res
-    .status(200)
-    .json({
-      message: "Profile Updated successfuly!",
-      user: updatedUser,
-      newExperience,
-      newEducation,
-    });
+  return res.status(200).json({
+    message: "Profile Updated successfuly!",
+    user: updatedUser,
+    newExperience,
+    newEducation,
+  });
+};
+
+export const downloadResume = async (req, res, next) => {
+  const userData = await User.findByPk(req.user.user_id, {
+    attributes: {
+      exclude: ["password"],
+    },
+    include: {
+      model: Profile,
+      as: "profile",
+      include: [
+        { model: Experience, as: "experiences" },
+        { model: Education, as: "educations" },
+      ],
+    },
+  });
+
+  const outputPath = await convertDataToPdf(userData);
+
+  return res.status(200).json({message: outputPath});
 };
