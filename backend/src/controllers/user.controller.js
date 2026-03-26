@@ -217,9 +217,8 @@ export const verifyOtp = async (req, res, next) => {
   newUser.token_updated_at = new Date();
   await newUser.save();
 
-  const profile = await Profile.create({ user_id: newUser.user_id });
-  await Education.create({profile_id: profile.id});
-  await Experience.create({profile_id: profile.id});
+  await Profile.create({ user_id: newUser.user_id });
+
 
   const message = `Welcome to Career Mesh, ${newUser.username}! 
 

@@ -1,5 +1,5 @@
 import { Education, Experience, Profile, User } from "../models/index.js";
-import convertDataToPdf from "../services/convertDataToPdf";
+import convertDataToPdf from "../services/convertDataToPdf.js";
 import ExpressError from "../utils/expressError.js";
 
 export const profile = async (req, res, next) => {
@@ -53,7 +53,7 @@ export const updateProfile = async (req, res, next) => {
     return next(new ExpressError("User not found or no changes made", 404));
   }
 
-  const profile = await Profile.findOne({ user_id: userId });
+  const profile = await Profile.findOne({ where: { user_id: userId } });
 
   let newExperience, newEducation;
 
@@ -82,7 +82,8 @@ export const updateProfile = async (req, res, next) => {
 };
 
 export const downloadResume = async (req, res, next) => {
-  const userData = await User.findByPk(req.user.user_id, {
+  const { user } = req;
+  const userData = await User.findByPk(user.user_id, {
     attributes: {
       exclude: ["password"],
     },
@@ -96,7 +97,7 @@ export const downloadResume = async (req, res, next) => {
     },
   });
 
-  const outputPath = await convertDataToPdf(userData);
+  const outputPath = await convertDataToPdf({user:userData});
 
-  return res.status(200).json({message: outputPath});
+  return res.status(200).json({ message: outputPath });
 };
