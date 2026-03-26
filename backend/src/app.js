@@ -5,7 +5,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import userRoute from "./routes/user.routes.js"
+import authRoute from "./routes/auth.routes.js"
+import connectionRoute from "./routes/connection.routes.js"
 import profileRoute from "./routes/profile.routes.js"
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -29,8 +30,9 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.use("/api/auth", userRoute);
+app.use("/api/auth", authRoute);
 app.use("/api/profile", profileRoute);
+app.use("/api/connections", connectionRoute);
 
 
 app.use((err, req, res, next) => {

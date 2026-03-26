@@ -7,7 +7,7 @@ import {
   register,
   resetPassword,
   verifyOtp,
-} from "../controllers/user.controller.js";
+} from "../controllers/auth.controller.js";
 import auth from "../middlewares/auth.js";
 const router = Router();
 

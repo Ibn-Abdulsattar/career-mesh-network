@@ -10,7 +10,7 @@ Connection.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    user_id: {
+    sender_id: {
       type: DataTypes.UUID,
       references: {
         model: "users",
@@ -18,7 +18,7 @@ Connection.init(
       },
       allowNull: false,
     },
-    connection_id: {
+    reciver_id: {
       type: DataTypes.UUID,
       references: {
         model: "users",
@@ -27,7 +27,8 @@ Connection.init(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM("accepted", "rejected", "pending", "blocked"),
+      type: DataTypes.ENUM("accepted", "rejected", "pending"),
+      defaultValue: "pending",
     },
   },
   {
@@ -36,11 +37,11 @@ Connection.init(
     tableName: "connections",
     underscored: true,
     indexes: [
-      { fields: ["connection_id"], name: "idx-connection_id" },
+      { fields: ["sender_id"], name: "idx-sender_id" },
+      { fields: ["reciver_id"], name: "idx-reciver_id" },
       { fields: ["status"], name: "idx-connection-status" },
     ],
   },
 );
 
-
-export default Connection ;
+export default Connection;

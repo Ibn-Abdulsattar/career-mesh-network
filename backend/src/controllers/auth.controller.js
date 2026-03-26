@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import sendMail from "../services/sendMail.js";
 import { Op } from "sequelize";
 import Otp from "../models/otp.model.js";
-import { Education, Experience, Profile, User } from "../models/index.js";
+import { Profile, User } from "../models/index.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import ExpressError from "../utils/expressError.js";
 const isProd = process.env.NODE_ENV === "production";
@@ -68,7 +68,7 @@ export const login = async (req, res, next) => {
       "isVerified",
       "avatar_url",
       "token",
-      "role"
+      "role",
     ],
   });
 
@@ -219,7 +219,6 @@ export const verifyOtp = async (req, res, next) => {
 
   await Profile.create({ user_id: newUser.user_id });
 
-
   const message = `Welcome to Career Mesh, ${newUser.username}! 
 
 We’re excited to have you join our community.
@@ -254,3 +253,5 @@ export const clearUserTokens = wrapAsync(async () => {
 
   console.log(`Cleared tokens for ${affectedCount} users.`);
 });
+
+
