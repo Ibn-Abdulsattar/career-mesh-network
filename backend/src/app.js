@@ -7,6 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.routes.js"
 import connectionRoute from "./routes/connection.routes.js"
+import postRoute from "./routes/post.routes.js"
 import profileRoute from "./routes/profile.routes.js"
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -33,12 +34,13 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoute);
 app.use("/api/profile", profileRoute);
 app.use("/api/connections", connectionRoute);
+app.use("/api/post", postRoute);
 
 
 app.use((err, req, res, next) => {
   console.error("🔥 Error:", err);
   const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
+  const message = err.message || Error.message || "Internal Server Error";
   return res.status(statusCode).json({ message });
 });
 

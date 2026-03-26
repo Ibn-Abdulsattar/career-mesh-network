@@ -15,6 +15,11 @@ class Otp extends Model {
 (async () => {
   Otp.init(
     {
+      id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
       email: {
         type: DataTypes.STRING,
         allowNull: false,

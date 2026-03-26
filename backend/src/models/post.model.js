@@ -5,6 +5,11 @@ class Post extends Model {}
 
 Post.init(
   {
+    id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -14,10 +19,10 @@ Post.init(
       },
     },
     body: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
     },
     likes: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
     },
     media: {
       type: DataTypes.STRING,
@@ -27,7 +32,7 @@ Post.init(
       defaultValue: true,
     },
     fileType: {
-      type: DataTypes.ENUM("text", "image", "video", "document"),
+      type: DataTypes.STRING,
     },
   },
   {
