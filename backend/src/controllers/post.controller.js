@@ -1,4 +1,5 @@
 import { Post } from "../models/index.js";
+// import { mediaQueue } from "../queue.js";
 import ExpressError from "../utils/expressError.js";
 
 export const createPost = async (req, res, next) => {
@@ -12,6 +13,11 @@ export const createPost = async (req, res, next) => {
   if (file) {
     try {
       mediaUrl = `${req.protocol}://${req.get("host")}/upload/${req.file.filename}`;
+
+      // await mediaQueue.add("moderate-media", {
+      //   fileType: fileType,
+      //   filePath: mediaUrl,
+      // });
     } catch {
       return next(new ExpressError("Upload failed!", 500));
     }
