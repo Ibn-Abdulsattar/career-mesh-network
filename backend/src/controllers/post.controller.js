@@ -57,9 +57,9 @@ export const getAllPosts = async (req, res, next) => {
 
 export const deletePost = async (req, res, next) => {
   const userId = req.user.user_id;
-  const { id } = req.params;
+  const { postId } = req.params;
 
-  const post = await Post.findByPk(id);
+  const post = await Post.findByPk(postId);
 
   if (!post) {
     return next(new ExpressError("No Record found!", 400));
@@ -72,4 +72,24 @@ export const deletePost = async (req, res, next) => {
   await post.update({ active: false });
 
   return res.status(200).json({ message: "Post deleted successfully!" });
+};
+
+export const incrementLikes = async (req, res, next) => {
+  const { postId } = req.params;
+
+  const post = await Post.findOne({
+    where: { id: postId, active: true },
+  });
+
+  if (!post) {
+    return next(new ExpressError("Post don't exist", 404));
+  }
+
+  await post.increment("likes");
+  await post.reload();
+
+  return res.status(200).json({
+    message: "Post liked successfully!",
+    likes: post.likes,
+  });
 };
