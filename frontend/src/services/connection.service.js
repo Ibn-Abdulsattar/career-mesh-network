@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = import.meta.env.VITE_Backend_Url;
+const API_URL = import.meta.env.NEXT_PUBLIC_BACKEND_URL;
 
 const connectionApi = axios.create({
     baseURL: `${API_URL}/api/connections`,
@@ -8,11 +8,11 @@ const connectionApi = axios.create({
 
 const connectionService = {
     sendConnectionRequest: async(receiverId)=>{
-        const res = await connectionApi.post(`/request/:${receiverId}`);
+        const res = await connectionApi.post(`/request/${receiverId}`);
         return res.data;
     },
     respondToRequest: async(requestId)=>{
-        const res = await connectionApi.post(`/respond/:${requestId}`);
+        const res = await connectionApi.post(`/respond/${requestId}`);
         return res.data;
     },
     getPendingRequests: async()=>{

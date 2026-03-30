@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = import.meta.env.VITE_Backend_Url;
+const API_URL = import.meta.env.NEXT_PUBLIC_BACKEND_URL;
 
 const postApi = axios.create({
   baseURL: `${API_URL}/api/post`,
@@ -8,19 +8,19 @@ const postApi = axios.create({
 
 const postService = {
   createPost: async (data) => {
-    const res = postApi.post("/", data);
+    const res = await postApi.post("/", data);
     return res.data;
   },
   getAllPosts: async () => {
-    const res = postApi.get("/");
+    const res =await postApi.get("/");
     return res.data;
   },
   deletePost: async (postId) => {
-    const res = postApi.delete(`/:${postId}`);
+    const res =await postApi.delete(`/${postId}`);
     return res.data;
   },
   incrementLikes: async (postId) => {
-    const res = postApi.put(`/:${postId}`);
+    const res =await postApi.put(`/${postId}`);
     return res.data;
   },
 };
