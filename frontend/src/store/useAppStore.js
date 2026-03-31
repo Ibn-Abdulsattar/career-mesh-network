@@ -6,12 +6,20 @@ import postSlice from "./slices/postSlice";
 import uiSlice from "./slices/uiSlice";
 
 const useAppStore = create(
-  persist((set, get) => ({
-    ...authSlice(set, get),
-    ...connectionSlice(set, get),
-    ...postSlice(set, get),
-    ...uiSlice(set, get)
-  })),
+  persist(
+    (set, get) => ({
+      ...authSlice(set, get),
+      ...connectionSlice(set, get),
+      ...postSlice(set, get),
+      ...uiSlice(set, get),
+    }),
+    {
+      name: "career-mesh-app-storage",
+      partialize: (state) => ({
+        user: state.user,
+      }),
+    },
+  ),
 );
 
 export default useAppStore;
