@@ -11,7 +11,7 @@ function Navbar() {
         <h2 onClick={()=> {router.push("/")}} className={style.navbarTitle}>Career Mesh</h2>
 
         <div className={style.navbarOptionContainer}>
-            <button className={style.navbarOption} onClick={()=> {router.push("/login")}}>Login</button>
+            <button className={style.navbarOption} onClick={()=> {router.push("/auth")}}>Login</button>
         </div>
       </div>
     </div>

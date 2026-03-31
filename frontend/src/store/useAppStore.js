@@ -7,11 +7,11 @@ import uiSlice from "./slices/uiSlice";
 
 const useAppStore = create(
   persist(
-    (set, get) => ({
-      ...authSlice(set, get),
-      ...connectionSlice(set, get),
-      ...postSlice(set, get),
-      ...uiSlice(set, get),
+    (...a) => ({
+      ...authSlice(...a),
+      ...connectionSlice(...a),
+      ...postSlice(...a),
+      ...uiSlice(...a),
     }),
     {
       name: "career-mesh-app-storage",

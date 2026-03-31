@@ -49,7 +49,7 @@ const authSlice = (set, get) => ({
       set({ user: data.user, isAuthenticated: true, isLoading: false });
       return data;
     } catch (err) {
-      console.log(err);
+      console.log(err.response?.data?.message);
       set({
         error: err.response?.data?.message,
         isLoading: false,
@@ -71,6 +71,18 @@ const authSlice = (set, get) => ({
       });
     }
   },
+
+  forgotPassword:async(formData)=>{
+    set({isLoading: true, error: null});
+    try {
+      const data  = await authService.forgotPassword(formData);
+      set({isLoading: false});
+      return data;
+    } catch (err) {
+      console.log(err)
+      set({isLoading: false});
+    }
+  }
 });
 
 export default authSlice;

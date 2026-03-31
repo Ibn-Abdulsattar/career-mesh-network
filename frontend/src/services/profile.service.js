@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = import.meta.env.NEXT_PUBLIC_BACKEND_URL;
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const profileApi = axios.create({
     baseURL: `${API_URL}/api/profile`,
