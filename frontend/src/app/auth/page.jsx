@@ -1,11 +1,12 @@
+"use client";
 import UserLayout from "@/layout/userLayout";
 import React, { useState } from "react";
 import style from "./style.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useAppStore from "@/store/useAppStore";
 
 export default function Auth() {
-  const { loginUser, registerUser, verifyUser, forgotPassword, user } = useAppStore();
+  const { loginUser, registerUser, verifyUser, forgotPassword, isAuthenticated } = useAppStore();
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
@@ -75,7 +76,7 @@ export default function Auth() {
         return "Submit";
     }
 
-    if(user){
+    if(isAuthenticated){
       router.push("/dashboard");
     }
   };
