@@ -7,6 +7,7 @@ const authSlice = (set, get) => ({
   isAuthenticated: false,
   isLoading: true,
   error: null,
+  allUsers: [],
   checkAuth: async () => {
     try {
       const data = await profileService.user();
@@ -69,6 +70,19 @@ const authSlice = (set, get) => ({
       set({
         error: err.response?.data?.message,
         isLoading: false,
+      });
+    }
+  },
+
+    getAllUsers: async () => {
+    try {
+      const data = await authService.allUsers();
+      set({ allUsers: data.data});
+      return data;
+    } catch (err) {
+      console.log(err);
+      set({
+        error: err.response?.data?.message,
       });
     }
   },

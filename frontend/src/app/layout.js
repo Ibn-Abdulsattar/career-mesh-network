@@ -1,5 +1,8 @@
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./global.module.css";
+import { useEffect } from "react";
+import useAppStore from "@/store/useAppStore";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({ children }) {
+  const { checkAuth } = useAppStore();
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
   return (
     <html
       lang="en"

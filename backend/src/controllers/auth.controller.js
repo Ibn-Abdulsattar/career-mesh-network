@@ -239,6 +239,12 @@ Happy!
     .json({ message: "User registered successfully", user: newUser });
 };
 
+export const getAllUsers = async (req, res, next)=>{
+  const users = await User.findAll({where:{isVerified:true}, attributes:["user_id","username","email","avatar_url"]});
+
+  res.status(200).json({data: users});
+}
+
 export const clearUserTokens = wrapAsync(async () => {
   const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
 

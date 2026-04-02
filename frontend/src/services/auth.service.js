@@ -24,6 +24,10 @@ const authService = {
         const response = await authApi.put(`/reset-password/${resetToken}`, data);
         return response.data;
     },
+    allUsers: async()=>{
+        const response = await authApi.get(`/all-users`);
+        return response.data;
+    },
 };
 
 export default authService;

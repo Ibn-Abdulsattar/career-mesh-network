@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const publicRoutes = ["/", "/contact"];
 
-export  function middleware(req) {
+export  const middleware = (req)=> {
   const token = req.cookies.get("token")?.value;
   const pathname = req.nextUrl.pathname;
 
