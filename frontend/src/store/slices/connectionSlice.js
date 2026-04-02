@@ -1,3 +1,4 @@
+"use client";
 import connectionService from "@/services/connection.service";
 
 const connectionSlice = (set, get) => ({

@@ -7,17 +7,22 @@ import uiSlice from "./slices/uiSlice";
 
 const useAppStore = create(
   persist(
-    (...a) => ({
-      ...authSlice(...a),
-      ...connectionSlice(...a),
-      ...postSlice(...a),
-      ...uiSlice(...a),
+    (set, get, ...a) => ({
+      ...authSlice(set, get, ...a),
+      ...connectionSlice(set, get, ...a),
+      ...postSlice(set, get, ...a),
+      ...uiSlice(set, get, ...a),
+      _hashydrated: false,
+      setHasHydrated: (value)=> set({_hasHydrated: value})
     }),
     {
       name: "career-mesh-app-storage",
       partialize: (state) => ({
         user: state.user,
       }),
+      onRehydrateStorage: ()=>(state)=>{
+        state?.setHasHydrated(true)
+      }
     },
   ),
 );

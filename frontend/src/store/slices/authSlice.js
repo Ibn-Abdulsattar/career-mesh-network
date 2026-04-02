@@ -1,3 +1,4 @@
+"use client";
 import authService from "@/services/auth.service";
 import profileService from "@/services/profile.service";
 
@@ -72,17 +73,17 @@ const authSlice = (set, get) => ({
     }
   },
 
-  forgotPassword:async(formData)=>{
-    set({isLoading: true, error: null});
+  forgotPassword: async (formData) => {
+    set({ isLoading: true, error: null });
     try {
-      const data  = await authService.forgotPassword(formData);
-      set({isLoading: false});
+      const data = await authService.forgotPassword(formData);
+      set({ isLoading: false });
       return data;
     } catch (err) {
-      console.log(err)
-      set({isLoading: false});
+      console.log(err);
+      set({ isLoading: false });
     }
-  }
+  },
 });
 
 export default authSlice;

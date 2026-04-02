@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import styles from "./Home.module.css";
+import styles from "./global.module.css";
 import UserLayout from "@/layout/userLayout";
 import { useRouter } from "next/navigation";
 

@@ -1,3 +1,4 @@
+"use client";
 import postService from "@/services/post.service";
 
 const postSlice = (set, get) => ({
