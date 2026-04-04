@@ -1,50 +1,54 @@
 import { Post } from "../models/index.js";
-// import { mediaQueue } from "../queue.js";
+import  mediaQueue  from "../queue.js";
 import ExpressError from "../utils/expressError.js";
 
 export const createPost = async (req, res, next) => {
   const user_id = req.user.user_id;
-  console.log(req.body);
   const { content, active } = req.body;
+  
+  let mediaUrl = null;
+  let mimetype = null;
 
-  let mediaUrl, fileType;
-  const file = req.file;
-  fileType = req.file ? file.mimetype : "";
-  if (file) {
+  if (req.file) {
     try {
-      mediaUrl = `${req.protocol}://${req.get("host")}/upload/${req.file.filename}`;
+      const { filename, mimetype: fileMimetype } = req.file;
+      mimetype = fileMimetype;
 
-      // await mediaQueue.add("moderate-media", {
-      //   fileType: fileType,
-      //   filePath: mediaUrl,
-      // });
-    } catch {
-      return next(new ExpressError("Upload failed!", 500));
+      mediaUrl = `${req.protocol}://${req.get("host")}/upload/${filename}`;
+
+      await mediaQueue.add("filter-media", {
+        url: mediaUrl,
+        fileType: mimetype,
+        fileName: filename,
+      }, { 
+        attempts: 3, 
+        backoff: { type: "exponential", delay: 5000 } 
+      });
+      
+    } catch (error) {
+      return next(new ExpressError("Queue processing failed!", 500));
     }
   }
 
   if (!content && !mediaUrl) {
-    return next(
-      new ExpressError(
-        "Post cannot be empty! Please provide text or media.",
-        400,
-      ),
-    );
+    return next(new ExpressError("Post cannot be empty!", 400));
   }
 
   const newPost = await Post.create({
     active: active ?? true,
     body: content,
     user_id,
-    fileType: fileType,
+    fileType: mimetype,
     media: mediaUrl,
     likes: 0,
   });
 
-  return res
-    .status(201)
-    .json({ message: "New Post created successfully!", data: newPost });
+  return res.status(201).json({ 
+    message: "New Post created successfully!", 
+    data: newPost 
+  });
 };
+
 
 export const getAllPosts = async (req, res, next) => {
   const userId = req.user.user_id;

@@ -1,7 +1,6 @@
 .homeContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .homeContainer > div:nth-child(odd) {
@@ -10,6 +9,7 @@
 
 .homeContainer > div:nth-child(even) {
   flex: 0.6;
+
 }
 
 .sidebarOption {

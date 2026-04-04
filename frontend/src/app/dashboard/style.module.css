@@ -1,0 +1,262 @@
+.createPostContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  gap: 1rem;
+  background-color: rgb(240, 233, 233);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  align-items: center;
+}
+
+.profile {
+  border-radius: 50%;
+  object-fit: fit;
+  max-width: 2rem;
+  max-height: 2rem;
+}
+
+.postContent {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0.3rem;
+  padding-inline: 1rem;
+  border-radius: 0.3rem;
+  outline: none;
+}
+
+.postIcon {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: rgb(70, 70, 201);
+  color: white;
+  cursor: pointer;
+}
+
+.uploadButton {
+  position: absolute;
+  bottom: -34%;
+  right: 3;
+  background-color: rgb(70, 70, 201);
+  color: white;
+  padding-inline: 1rem;
+  padding-block: 0.3rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(70, 70, 201);
+  cursor: pointer;
+}
+
+.fileInput{
+  display: none;
+}
+
+/* PostFeed.module.css */
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* ── Card ── */
+.card {
+  background: #fafaf8;
+  border: 1px solid #e8e4de;
+  border-bottom: none;
+  padding: 20px 24px;
+  transition: background 0.15s ease;
+  position: relative;
+}
+
+.card:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.card:last-child {
+  border-bottom: 1px solid #e8e4de;
+  border-radius: 0 0 12px 12px;
+}
+
+.card:only-child {
+  border-radius: 12px;
+  border-bottom: 1px solid #e8e4de;
+}
+
+.card:hover {
+  background: #f5f3ee;
+}
+
+/* ── Header row ── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #d6d0c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b6560;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+  font-family: 'Courier New', monospace;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2c2825;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}
+
+.postId {
+  font-size: 11px;
+  color: #a89f96;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Body text ── */
+.body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #3d3730;
+  margin: 0 0 14px 0;
+  word-break: break-word;
+}
+
+.body:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Media ── */
+.mediaWrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0dbd4;
+  background: #ede9e3;
+  margin-bottom: 14px;
+}
+
+.mediaImage {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.mediaVideo {
+  width: 100%;
+  max-height: 340px;
+  display: block;
+  background: #1a1714;
+}
+
+.mediaPdf {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.pdfIcon {
+  width: 36px;
+  height: 36px;
+  background: #c0392b;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0;
+}
+
+.pdfInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pdfName {
+  font-size: 13px;
+  color: #2c2825;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdfLink {
+  font-size: 11px;
+  color: #8a7f78;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  transition: color 0.15s;
+}
+
+.pdfLink:hover {
+  color: #c0392b;
+}
+
+/* ── Footer ── */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.likeBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #9a9088;
+  font-family: 'Courier New', monospace;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.likeBtn:hover {
+  color: #c0392b;
+}
+
+.likeBtn svg {
+  transition: transform 0.15s;
+}
+
+.likeBtn:hover svg {
+  transform: scale(1.2);
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: #ddd8d0;
+}

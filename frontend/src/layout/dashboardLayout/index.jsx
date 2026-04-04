@@ -13,7 +13,7 @@ function DashboardLayout({ children }) {
 
   const sideBarOptions = [
     {
-      name: "Home",
+      name: "Scroll",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

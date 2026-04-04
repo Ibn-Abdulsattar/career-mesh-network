@@ -1,35 +1,32 @@
-// import { Worker } from "bullmq";
-// import IORedis from "ioredis";
-// import moderateImage from "./services/moderateImage";
-// import moderateVideo from "./services/moderateVideo";
-// import moderatePdf from "./services/moderatePdf";
+import { Worker } from "bullmq";
+import moderateImage from "./services/moderateImage";
+import moderateVideo from "./services/moderateVideo";
+import moderatePdf from "./services/moderatePdf";
 
-// const connection = new IORedis({ maxRetriesPerRequest: 3 });
+const worker = new Worker(
+  "media-moderation",
+  async (job) => {
+    const { url, fileType } = job.data;
 
-// const worker = new Worker(
-//   "media-moderation",
-//   async (job) => {
-//     const { filePath, fileType } = job.data;
+    console.log("Processing:", fileType, url);
 
-//     console.log("Processing:", filePath);
+    let result = "safe";
 
-//     let result = "safe";
+    if (fileType.startsWith("image/")) {
+      result = await moderateImage(url, fileType);
+    } else if (fileType.startsWith("video/")) {
+      result = await moderateVideo(url, fileType);
+    } else if(fileType === "application/pdf") {
+      result = await moderatePdf(url, fileType);
+    }
 
-//     if (fileType.startsWith("image")) {
-//       result = await moderateImage(filePath, fileType);
-//     } else if (fileType.startsWith("video")) {
-//       result = await moderateVideo(filePath, fileType);
-//     } else {
-//       result = await moderatePdf(filePath, fileType);
-//     }
+    if (result === "unsafe") {
+      console.log("Delete file", url);
+    } else {
+      console.log("Approved file", url);
+    }
+  },
+  { connection: {port: 6379, host: "localhost"} },
+);
 
-//     if (result === "unsafe") {
-//       console.log("Delete file", filePath);
-//     } else {
-//       console.log("Approved file", filePath);
-//     }
-//   },
-//   { connection },
-// );
-
-// export default worker;
+export default worker;
