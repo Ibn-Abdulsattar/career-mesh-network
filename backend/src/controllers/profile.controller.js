@@ -82,8 +82,8 @@ export const updateProfile = async (req, res, next) => {
 };
 
 export const downloadResume = async (req, res, next) => {
-  const { user } = req;
-  const userData = await User.findByPk(user.user_id, {
+  const { id } = req.body;
+  const userData = await User.findByPk(id, {
     attributes: {
       exclude: ["password"],
     },
@@ -97,7 +97,8 @@ export const downloadResume = async (req, res, next) => {
     },
   });
 
-  const outputPath = await convertDataToPdf({user:userData});
+  const outputPath = await convertDataToPdf({ user: userData });
 
   return res.status(200).json({ message: outputPath });
+
 };

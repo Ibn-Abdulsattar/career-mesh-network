@@ -20,7 +20,6 @@ const convertDataToPdf = async (userData) => {
 
   const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
   const stream = fs.createWriteStream("./upload/" + outputPath);
-
   doc.pipe(stream);
 
   if (imageBuffer) {
@@ -65,7 +64,7 @@ const convertDataToPdf = async (userData) => {
 
   doc.end();
 
-  return outputPath;
+  return stream.path;
 };
 
 export default convertDataToPdf;

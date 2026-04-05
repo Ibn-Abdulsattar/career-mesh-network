@@ -13,6 +13,6 @@ router
   .route("/me")
   .get(auth(["user"]), wrapAsync(profile))
   .put(auth(["user"]), upload.single("media"), wrapAsync(updateProfile));
-router.get("/get-resume", auth(["user"]), wrapAsync(downloadResume));
+router.get("/get-resume", wrapAsync(downloadResume));
 
 export default router;
