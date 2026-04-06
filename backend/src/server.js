@@ -1,8 +1,9 @@
-import {app} from "./app.js";
+import { app } from "./app.js";
 import { connectDB } from "./config/db.js";
 import { startCronJobs, stopCronJobs } from "./services/cronJob.js";
+import worker from "./worker.js";
 
-const PORT = app.get('PORT');
+const PORT = app.get("PORT");
 
 async function startApp() {
   try {

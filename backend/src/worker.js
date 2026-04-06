@@ -1,7 +1,7 @@
 import { Worker } from "bullmq";
-import moderateImage from "./services/moderateImage";
-import moderateVideo from "./services/moderateVideo";
-import moderatePdf from "./services/moderatePdf";
+import moderateImage from "./services/moderateImage.js";
+import moderateVideo from "./services/moderateVideo.js";
+import moderatePdf from "./services/moderatePdf.js";
 
 const worker = new Worker(
   "media-moderation",

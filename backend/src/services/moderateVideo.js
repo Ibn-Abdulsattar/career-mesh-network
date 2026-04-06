@@ -1,7 +1,7 @@
 import videoIntelligence from "@google-cloud/video-intelligence";
-import ExpressError from "../utils/expressError";
-import wrapAsync from "../utils/wrapAsync";
-const videoClient = new videoIntelligence.videoIntelligenceServiceClient();
+import ExpressError from "../utils/expressError.js";
+import wrapAsync from "../utils/wrapAsync.js";
+const videoClient = new videoIntelligence.VideoIntelligenceServiceClient();
 
 const moderateVideo = wrapAsync(async (gcsUri) => {
   const request = {
