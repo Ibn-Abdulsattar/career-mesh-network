@@ -116,3 +116,25 @@ Password hashing using bcrypt
 JWT-based authentication
 Protected routes with middleware
 CORS configuration for secure communication
+
+📈 Future Improvements
+Real-time chat system
+Notifications
+Job posting module
+Advanced search & filtering
+AI-powered recommendations
+🤝 Contributing
+
+Contributions are welcome!
+
+Fork the repo
+Create a new branch
+Make your changes
+Submit a pull request
+📄 License
+
+This project is licensed under the ISC License.
+
+💡 Author
+
+Developed by [Muhammad Usman]
